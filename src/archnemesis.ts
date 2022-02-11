@@ -16,12 +16,15 @@ export const Recipes: { [key: string]: string[] } = {
     "Mirror Image": ["Echoist", "Soul Conduit"],
     "Mana Siphoner": ["Consecrator", "Dynamo"],
     "Tukohama-touched": ["Bonebreaker", "Executioner", "Magma Barrier"],
+    "Abberath-touched":["Flame Strider", "Fenzied", "Rejuvenating"],
+    "Rejuvenating": ["Gargantuan", "Vampiric"],
+    "Flame Strider": ["Flameweaver", "Hasted"],
     "Brine King-touched": ["Ice Prison", "Storm Strider", "Heralding Minions"],
     "Ice Prison": ["Permafrost", "Sentinel"],
     "Storm Strider": ["Stormweaver", "Hasted"],
     "Heralding Minions": ["Dynamo", "Arcane Buffer"],
     "Treant Horder": ["Toxic", "Sentinel", "Steel-infused"],
-    "Money Money Money": ["Innocence-touched", "Tukohama-touched", "Treant Horder", "Brine King-touched"]
+    "Money Money Money": ["Innocence-touched", "Abberath-touched", "Treant Horder", "Brine King-touched"]
 }
 
 export const RecipeGoal = ["Money Money Money", "Money Money Money", "Money Money Money"]
