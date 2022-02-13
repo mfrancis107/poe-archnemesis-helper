@@ -16,7 +16,7 @@ export const Recipes: { [key: string]: string[] } = {
     "Mirror Image": ["Echoist", "Soul Conduit"],
     "Mana Siphoner": ["Consecrator", "Dynamo"],
     "Tukohama-touched": ["Bonebreaker", "Executioner", "Magma Barrier"],
-    "Abberath-touched":["Flame Strider", "Fenzied", "Rejuvenating"],
+    "Abberath-touched":["Flame Strider", "Frenzied", "Rejuvenating"],
     "Rejuvenating": ["Gargantuan", "Vampiric"],
     "Flame Strider": ["Flameweaver", "Hasted"],
     "Brine King-touched": ["Ice Prison", "Storm Strider", "Heralding Minions"],

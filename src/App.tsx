@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
@@ -11,7 +11,7 @@ import {
     RequiredItems,
     summarizeList
 } from "./archnemesis";
-import {none, State, useState} from "@hookstate/core";
+import {DevTools, none, State, useState} from "@hookstate/core";
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -30,7 +30,9 @@ const requiredItems = RequiredItems();
 
 function App() {
     const inventory = useState<string[]>([]);
+    DevTools(inventory).label('arch-inventory')
     inventory.attach(Persistence("archnemesis-inventory"))
+
     const summary = summarizeList(inventory.value);
 
     const addToInventory = (item: string) => {
@@ -61,6 +63,10 @@ function App() {
                             <InventorySummary inventory={inventory}/>
                         </Grid>
                         <Grid item xs={9}>
+                            <Stack>
+                                <h5>Ready Recipes</h5>
+                                <ReadyRecipes inventory={inventory}/>
+                            </Stack>
                             <Stack>
                                 <h5>Add</h5>
                                 <Grid spacing={3} container>
@@ -105,10 +111,6 @@ function App() {
                                             </Badge>
                                         </Grid>))}
                                 </Grid>
-                            </Stack>
-                            <Stack>
-                                <h5>Ready Recipes</h5>
-                                <ReadyRecipes inventory={inventory}/>
                             </Stack>
                             <Stack sx={{mt: "250px;"}}>
                                 <h5>Reset All</h5>
@@ -189,17 +191,17 @@ function ReadyRecipes(props: { inventory: State<string[]> }) {
     const _inventory = props.inventory.value;
     const summary = summarizeList(_inventory);
     const readyRecipes = calculateReadyRecipes(summary);
-    const markDone = (mod: string) => {
+    const markDone = useCallback((mod: string) => {
         const children = Recipes[mod];
-        const indexes = children.map(child => _inventory.indexOf(child));
+        const indexes = children.map(child => props.inventory.value.indexOf(child));
+        const inventoryLength = _inventory.length;
         const merge: { [key: number]: any | string } = {};
-        merge[_inventory.length] = mod
         indexes.forEach(index => {
             merge[index] = none;
         });
         props.inventory.merge(merge);
-
-    };
+        props.inventory.merge([mod]);
+    }, [props.inventory]);
     return <Grid container spacing={2}>
         {readyRecipes.map(recipe => (
             <Grid item key={recipe}><Button variant={"contained"} onClick={() => markDone(recipe)}
